@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NETWORKBOOT_FILENAME=networkboot.cfg
+NETBOOT_FILENAME=networkboot.cfg
 
 # Install NFS server
 apt-get -y install nfs-kernel-server
@@ -22,13 +22,13 @@ mv /etc/initramfs-tools/initramfs.conf.bak /etc/initramfs-tools/initramfs.conf
 cp /boot/vmlinuz-`uname -r` $TFTP_DIRECTORY/vmlinuz
 
 # Add network boot record
-echo -e "label boot" >> $TFTP_DIRECTORY/$NETWORKBOOT_FILENAME
-echo -e "\tmenu label ^Boot" >> $TFTP_DIRECTORY/$NETWORKBOOT_FILENAME
-echo -e "\tkernel vmlinuz" >> $TFTP_DIRECTORY/$NETWORKBOOT_FILENAME
-echo -e "\tappend initrd=initrd.img root=/dev/nfs nfsroot=$LAN_SERVER_IP:$NFS_DIRECTORY ip=dhcp rw" >> $TFTP_DIRECTORY/$NETWORKBOOT_FILENAME
+echo -e "label boot" >> $TFTP_DIRECTORY/$NETBOOT_FILENAME
+echo -e "\tmenu label ^Boot" >> $TFTP_DIRECTORY/$NETBOOT_FILENAME
+echo -e "\tkernel vmlinuz" >> $TFTP_DIRECTORY/$NETBOOT_FILENAME
+echo -e "\tappend initrd=initrd.img root=/dev/nfs nfsroot=$LAN_SERVER_IP:$NFS_DIRECTORY ip=dhcp rw" >> $TFTP_DIRECTORY/$NETBOOT_FILENAME
 
 # Modify boot record
-sed -i 's,include debian-installer/amd64/boot-screens/gtk.cfg,include debian-installer/amd64/boot-screens/gtk.cfg\ninclude '"$NETWORKBOOT_FILENAME"',' $TFTP_DIRECTORY/debian-installer/amd64/boot-screens/menu.cfg
+sed -i 's,include debian-installer/amd64/boot-screens/gtk.cfg,include debian-installer/amd64/boot-screens/gtk.cfg\ninclude '"$NETBOOT_FILENAME"',' $TFTP_DIRECTORY/debian-installer/amd64/boot-screens/menu.cfg
 
 # Create NFS export entry
 echo -e "$NFS_DIRECTORY *(rw,sync,no_subtree_check,no_root_squash)\n" >> /etc/exports
