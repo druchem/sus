@@ -14,11 +14,14 @@ cp -R /etc $NFS_DIRECTORY/etc
 cp -R /lib $NFS_DIRECTORY/lib
 cp -R /lib64 $NFS_DIRECTORY/lib64
 cp -R /opt $NFS_DIRECTORY/opt
-cp -R /root $NFS_DIRECTORY/root
 cp -R /run $NFS_DIRECTORY/run
 cp -R /sbin $NFS_DIRECTORY/sbin
 cp -R /usr $NFS_DIRECTORY/usr
 cp -R /var $NFS_DIRECTORY/var
+
+# Create /root in NFS directory
+mkdir $NFS_DIRECTORY/root
+chmod 700 $NFS_DIRECTORY/root
 
 # Add mount points to client fstab
 rm $NFS_DIRECTORY/etc/fstab
