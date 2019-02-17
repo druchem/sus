@@ -16,6 +16,8 @@ export DNS_UPSTREAM_2=1.0.0.1
 export TFTP_DIRECTORY=/srv/tftp
 export NFS_DIRECTORY=/srv/nfs
 
+export NETBOOT_MIRROR_HOST=ftp.cz.debian.org
+
 echo "Exporting file system"
 bash ./copyfs.sh
 
