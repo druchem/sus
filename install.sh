@@ -17,21 +17,21 @@ export TFTP_DIRECTORY=/srv/tftp
 export NFS_DIRECTORY=/srv/nfs
 
 echo "Exporting file system"
-bash ./scripts/copyfs.sh
+bash ./copyfs.sh
 
 echo "Setting up network"
-bash ./scripts/network.sh
+bash ./network.sh
 
 echo "Setting up DNS server"
-bash ./scripts/dns.sh
+bash ./dns.sh
 
 echo "Installing DHCP server"
-bash ./scripts/dhcp.sh
+bash ./dhcp.sh
 
 echo "Installing TFTP server"
-bash ./scripts/tftp.sh
+bash ./tftp.sh
 
 echo "Installing NFS server"
-bash ./scripts/nfs.sh
+bash ./nfs.sh
 
 echo "Install script finished!"
