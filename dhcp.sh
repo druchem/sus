@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Requires DNS
-
 DHCPD_CONF_FILE=/etc/dhcp/dhcpd.conf
 
 # Install ISC-DHCP server
@@ -11,8 +9,9 @@ apt-get -y install isc-dhcp-server
 sed -i 's,INTERFACESv4="",INTERFACESv4="'"$LAN_INTERFACE"'",' /etc/default/isc-dhcp-server
 
 # Remove old configuration file
-rm $DHCPD_CONF_FILE
+mv $DHCPD_CONF_FILE $DHCPD_CONF_FILE.old
 
+# Write new configuration file
 echo -e "ddns-update-style none;" >> $DHCPD_CONF_FILE
 echo -e "authoritative;" >> $DHCPD_CONF_FILE
 echo -e "allow booting;" >> $DHCPD_CONF_FILE
